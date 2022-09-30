@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Assignment 2 </title>
+
+    <script src= "https://unpkg.com/jspsych@7.3.0"></script>
+    <link href= "https://unpkg.com/jspsych@7.3.0/css/jspsych.css" rel="stylesheet" type="text/css"/>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.1"></script>
+    <script src= "https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.1"></script>
+
+
+    <script src = "list1.js"></script>
+
+
+</head>
+
+<body>
+<script>
+   const jsPsych = initJsPsych();
+
+    var instructions = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "<h2>Instructions</h2> A trivia question will appear on the screen, followed by a word shown very quickly. After seeing the word, you will be asked if you know the answer, don’t know the answer, have another word in mind, or if the answer is at the tip of you tongue. Once you indicate what state you are in, you will be asked to type the answer to the trivia question. <br> <br> Click Next to continue.",
+        choices: ['Next']
+    }
+
+    var sentence = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('prompt'),
+        choices: "NO_KEYS",
+        trial_duration: 5000
+    }
+
+    var prime = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('prime_given'),
+        choices: "NO_KEYS",
+        trial_duration: 250
+        }
+
+    var state = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "Do you know the answer?",
+        choices: ["I Know", "I Don't Know", "Other Word In Mind", "Tip of the Tongue"]
+    }
+
+    var response = {
+        type: jsPsychSurveyText,
+        questions: [{prompt: jsPsych.timelineVariable('prompt')}
+  ]
+}   
+
+    var experiment_procedure = {
+        timeline: [sentence, prime, state, response],
+        timeline_variables: list1,
+        randomize_order: true
+};
+
+    var end_experiment = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "Thank you for participating! Click any key to end the experiment."
+        };
+
+    jsPsych.run([instructions, experiment_procedure, end_experiment])
+
+</script>
+</body> 
+</html>
