@@ -12,7 +12,9 @@
 
 
     <script src = "list1.js"></script>
-
+    <script src = "list2.js"></script>
+    <script src = "list3.js"></script>
+    <script src = "list4.js"></script>
 
 </head>
 
@@ -52,15 +54,28 @@
   ]
 }   
 
-    var experiment_procedure = {
-        timeline: [sentence, prime, state, response],
-        timeline_variables: list1,
-        randomize_order: true
+var experiment_procedure = {
+    timeline: [sentence, prime, state, response],
+    timeline_variables: teststimuli,
+    randomize_order: true
 };
+    var list = [1,2,3,4]
+    var CONDITION = list[Math.floor(Math.random() * list.length)];
+
+    var teststimuli = []
+
+    if(CONDITION == 1){teststimuli = list1}
+    else if(CONDITION == 2){teststimuli = list2}
+    else if(CONDITION == 3){teststimuli = list3}
+    else{teststimuli = list4}
+
+    console.log("list", list)
+    console.log("CONDITION", CONDITION)
+    console.log("teststimuli", teststimuli)
 
     var end_experiment = {
         type: jsPsychHtmlKeyboardResponse,
-        stimulus: "Thank you for participating! Click any key to end the experiment."
+        stimulus: "Thank you for participating! Click any key to end the experiment.",
         };
 
     jsPsych.run([instructions, experiment_procedure, end_experiment])
