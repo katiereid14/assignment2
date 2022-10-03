@@ -1,4 +1,4 @@
-list1 = [
+var list1 = [
     {
       "target": "abacus",
       "prompt": "Instrument for performing calculations by sliding beads along rods or grooves",
